@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import UserDetails from './UserDetails';
 import Name from './NameComp';
+import Counter from './exercise1';
 
 function App() {
   const name = 'Alex';
@@ -43,7 +44,7 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
+      {/* <header className="App-header">
         <h1>Hello World</h1>
         <div style={{ height: 10 }}>
             Hello KodeGo!
@@ -62,7 +63,8 @@ function App() {
         >
           Learn Reactsssss
         </a>
-      </header>
+      </header> */}
+      <Counter />
     </div>
   );
 }
