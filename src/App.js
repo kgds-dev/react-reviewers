@@ -3,12 +3,13 @@ import './App.css';
 import UserDetails from './UserDetails';
 import Name from './NameComp';
 import Counter from './exercise1';
+import Login from './login';
 
 function App() {
-  const name = 'Alex';
-  const age = 20;
-  const element = <h1>Hello, {name}</h1>;
-  const anchorTag = <a href="https://google.com" target='_blank'>Go to google</a>
+  // const name = 'Alex';
+  // const age = 20;
+  // const element = <h1>Hello, {name}</h1>;
+  // const anchorTag = <a href="https://google.com" target='_blank'>Go to google</a>
 
 
   // const img = `url(${name})`;
@@ -18,18 +19,18 @@ function App() {
   //   // backgroundImage: 'url(' + imgUrl + ')',
   // };
 
-  const userData = [
-    {
-      name: 'Felix Santos',
-      age: 25,
-      citizenship: 'Filipino'
-    },
-    {
-      name: 'Alexander Smith',
-      age: 31,
-      citizenship: 'American'
-    },
-  ];
+  // const userData = [
+  //   {
+  //     name: 'Felix Santos',
+  //     age: 25,
+  //     citizenship: 'Filipino'
+  //   },
+  //   {
+  //     name: 'Alexander Smith',
+  //     age: 31,
+  //     citizenship: 'American'
+  //   },
+  // ];
 
   // const data = {
   //   id: 1,
@@ -41,6 +42,18 @@ function App() {
   // if (test) {
   //   divStyle.color = 'red';
   // }
+
+  // imaginary user table inside your database (response of your API)
+  const userData = [
+    {
+      username: 'kimbo123',
+      password: 'root123'
+    },
+    {
+      username: 'graham123',
+      password: 'root123'
+    }
+  ];
 
   return (
     <div className="App">
@@ -64,7 +77,10 @@ function App() {
           Learn Reactsssss
         </a>
       </header> */}
-      <Counter />
+      {/* <Counter /> */}
+
+      {/* Sample login system activity */}
+      <Login userData={userData}/>
     </div>
   );
 }
