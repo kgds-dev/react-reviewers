@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import LoginForm from './login.form';
 
-function Login({userData}) {
+function Login({data}) {
     return (
         <div className="app">
             <div className="login-form">
-                <LoginForm data={userData} />
+                <LoginForm userData={data} />
             </div>
         </div>
     );

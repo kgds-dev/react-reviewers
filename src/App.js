@@ -1,9 +1,12 @@
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import UserDetails from './UserDetails';
 import Name from './NameComp';
 import Counter from './exercise1';
-import Login from './login';
+import Login from './login/login';
+import SignUpForm from './signup/signup';
+import ProductList from './products/ProductList';
 
 function App() {
   // const name = 'Alex';
@@ -44,16 +47,25 @@ function App() {
   // }
 
   // imaginary user table inside your database (response of your API)
-  const userData = [
-    {
-      username: 'kimbo123',
-      password: 'root123'
-    },
-    {
-      username: 'graham123',
-      password: 'root123'
-    }
+  // const userData = [
+  //   {
+  //     username: 'kimbo123',
+  //     password: 'root123'
+  //   },
+  //   {
+  //     username: 'graham123',
+  //     password: 'root123'
+  //   }
+  // ];
+
+  const products = [
+    { id: 1, name: 'Product A', category: 'Category 1' },
+    { id: 2, name: 'Product B', category: 'Category 2' },
+    { id: 3, name: 'Product C', category: 'Category 1' },
+    { id: 4, name: 'Product D', category: 'Category 3' },
   ];
+
+  const categories = ['Category 1', 'Category 2', 'Category 3', 'Category 4'];
 
   return (
     <div className="App">
@@ -80,7 +92,9 @@ function App() {
       {/* <Counter /> */}
 
       {/* Sample login system activity */}
-      <Login userData={userData}/>
+      {/* <Login userData={userData}/> */}
+      {/* <Login data={userData} /> */}
+      <ProductList products={products} categories={categories} />
     </div>
   );
 }
