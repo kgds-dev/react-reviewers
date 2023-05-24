@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import UserDetails from './UserDetails';
@@ -7,6 +7,7 @@ import Counter from './exercise1';
 import Login from './login/login';
 import SignUpForm from './signup/signup';
 import ProductList from './products/ProductList';
+import apiService from './api-service/apiService';
 
 function App() {
   // const name = 'Alex';
@@ -58,14 +59,26 @@ function App() {
   //   }
   // ];
 
-  const products = [
-    { id: 1, name: 'Product A', category: 'Category 1' },
-    { id: 2, name: 'Product B', category: 'Category 2' },
-    { id: 3, name: 'Product C', category: 'Category 1' },
-    { id: 4, name: 'Product D', category: 'Category 3' },
-  ];
+  const [userData, setUserData] = useState([])
 
-  const categories = ['Category 1', 'Category 2', 'Category 3', 'Category 4'];
+  useEffect(() => {
+    apiService.get('/users/getUsers')
+    .then(response => {
+      setUserData(response.data);
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }, []);
+
+  // const products = [
+  //   { id: 1, name: 'Product A', category: 'Category 1' },
+  //   { id: 2, name: 'Product B', category: 'Category 2' },
+  //   { id: 3, name: 'Product C', category: 'Category 1' },
+  //   { id: 4, name: 'Product D', category: 'Category 3' },
+  // ];
+
+  // const categories = ['Category 1', 'Category 2', 'Category 3', 'Category 4'];
 
   return (
     <div className="App">
@@ -93,8 +106,8 @@ function App() {
 
       {/* Sample login system activity */}
       {/* <Login userData={userData}/> */}
-      {/* <Login data={userData} /> */}
-      <ProductList products={products} categories={categories} />
+      {/* <ProductList products={products} categories={categories} /> */}
+      <Login data={userData} />
     </div>
   );
 }

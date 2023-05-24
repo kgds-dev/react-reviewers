@@ -1,3 +1,4 @@
+import apiService from '../api-service/apiService';
 import SignUpForm from '../signup/signup';
 import './login.css';
 import React, { useEffect, useState } from 'react';
@@ -5,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 
 function LoginForm({ userData }) {
     const errorMessages = {
-        userName: 'username is not valid',
+        email: 'username is not valid',
         password: 'password is not valid'
     };
 
@@ -16,19 +17,28 @@ function LoginForm({ userData }) {
 
     const handleSubmit = event => {
         event.preventDefault();
+        console.log(userData);
 
-        const { username, password } = event.target.elements;
+        const { email, password } = event.target.elements;
 
-        const response = userData.find(user => user.username === username.value);
+        const response = userData.find(user => user.email === email.value);
+        apiService.post('/users/login', response)
+        .then(res => {
+            alert(res.data.message);
+        })
+        .catch(error => {
+            alert(error);
+        })
 
         if (!response) {
-            setError({ name: 'username', message: errorMessages.userName });
+            setError({ name: 'email', message: errorMessages.email });
         } else if (response.password !== password.value) {
             setError({ name: 'password', message: errorMessages.password });
         } else {
             setSubmit(true);
-            setUser(response.username);
+            setUser(response.email);
         }
+
     }
 
     const errorHandler = name => {
@@ -58,9 +68,9 @@ function LoginForm({ userData }) {
                         <div className="form">
                             <form onSubmit={handleSubmit}>
                                 <div className="input-container">
-                                    <label>Username</label>
-                                    <input type="text" name="username" required />
-                                    {errorHandler("username")}
+                                    <label>Email</label>
+                                    <input type="text" name="email" required />
+                                    {errorHandler("email")}
                                 </div>
                                 <div className="input-container">
                                     <label>Password</label>
