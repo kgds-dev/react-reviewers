@@ -1,18 +1,15 @@
+import apiService from '../api-service/apiService';
 import './signup.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const SignupForm = ({ handleSignUp }) => {
-  const errorMessages = {
-    userName: 'username is not valid',
-    password: 'password is not valid',
-    confirmPassword: 'passwords does not match'
-  };
-
   const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
-    username: '',
+    email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    firstName: '',
+    lastName: ''
   });
 
   const handleChange = event => {
@@ -22,19 +19,19 @@ const SignupForm = ({ handleSignUp }) => {
     
   const handleSubmit = event => {
     event.preventDefault();
+    
+    apiService.post('/users/signup', formData)
+      .then(response => {
+        if (!response.data.status) {
+          return setErrors({ name: response.data.errorName, message: response.data.message });
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      })
 
-    const { username, password, confirmPassword } = formData;
-
-    if (password !== confirmPassword) {
-      setErrors({ name: 'confirmPassword', message: errorMessages.confirmPassword });
-    } else if (!password) {
-      setErrors({ name: 'password', message: errorMessages.password });
-    } else if (!username) {
-      setErrors({ name: 'username', message: errorMessages.userName });
-    } else {
       handleSignUp(formData);
-      setErrors({});
-    }
+      setErrors({})
   }
 
   const errorHandler = (name) => {
@@ -45,15 +42,34 @@ const SignupForm = ({ handleSignUp }) => {
     <div className="form">
       <form onSubmit={handleSubmit}>
         <div className="input-container">
-          <label>Username</label>
+          <label>First name</label>
           <input 
             type="text" 
-            name="username" 
-            value={formData.username}
+            name="firstName" 
+            value={formData.firstName}
             onChange={handleChange} 
-            required
           />
-          {errorHandler("username")}
+          {errorHandler("firstName")}
+        </div>
+        <div className="input-container">
+          <label>Last name</label>
+          <input 
+            type="text" 
+            name="lastName" 
+            value={formData.lastName}
+            onChange={handleChange} 
+          />
+          {errorHandler("lastName")}
+        </div>
+        <div className="input-container">
+          <label>Email</label>
+          <input 
+            type="text" 
+            name="email" 
+            value={formData.email}
+            onChange={handleChange} 
+          />
+          {errorHandler("email")}
         </div>
         <div className="input-container">
           <label>Password</label>
@@ -62,7 +78,6 @@ const SignupForm = ({ handleSignUp }) => {
             name="password" 
             value={formData.password}
             onChange={handleChange} 
-            required
           />
           {errorHandler("password")}
         </div>
@@ -73,7 +88,6 @@ const SignupForm = ({ handleSignUp }) => {
             name="confirmPassword" 
             value={formData.confirmPassword}
             onChange={handleChange} 
-            required
           />
           {errorHandler("confirmPassword")}
         </div>

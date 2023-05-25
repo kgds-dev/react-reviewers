@@ -17,8 +17,6 @@ function LoginForm({ userData }) {
 
     const handleSubmit = event => {
         event.preventDefault();
-        console.log(userData);
-
         const { email, password } = event.target.elements;
 
         const response = userData.find(user => user.email === email.value);
@@ -50,10 +48,9 @@ function LoginForm({ userData }) {
     };
     
     const handleSignUp = (formData) => {
-        console.log('Sign-up form data:', formData);
+        console.log(formData);
         setShowSignUpForm(false);
         userData.push(formData);
-        console.log(userData);
     };
 
     return (
