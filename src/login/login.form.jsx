@@ -20,7 +20,6 @@ function LoginForm({ userData }) {
         const { email, password } = event.target.elements;
 
         const response = userData.find(user => user.email === email.value && user.password === password.value);
-        console.log(response);
         apiService.post('/users/login', response)
         .then(res => {
             alert(res.data.message);
