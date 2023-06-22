@@ -64,7 +64,7 @@ function LoginForm() {
                             <div className="form">
                                 <form onSubmit={handleSubmit}>
                                     <div className="input-container">
-                                        <label>Emailsss</label>
+                                        <label>Email</label>
                                         <input type="text" name="email" required />
                                     </div>
                                     <div className="input-container">
