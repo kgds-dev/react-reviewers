@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import LoginForm from './login.form';
 
-function Login({data}) {
+const Login = ({data}) => {
     return (
         <div className="app">
             <div className="login-form">

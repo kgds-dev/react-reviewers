@@ -8,8 +8,63 @@ import Login from './login/login';
 import SignUpForm from './signup/signup';
 import ProductList from './products/ProductList';
 import apiService from './api-service/apiService';
+import { Redirect, BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import Dashboard from './dashboard/dashboard';
 
 function App() {
+  const [userData, setUserData] = useState([])
+
+  useEffect(() => {
+    apiService.get('/users/getUsers')
+    .then(response => {
+      setUserData(response.data);
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }, []);
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route index path='/login' element={<Login data={userData} /> } />
+        <Route path='/dashboard' element={<Dashboard />}/>
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+
+{/* <header className="App-header">
+  <h1>Hello World</h1>
+  <div style={{ height: 10 }}>
+      Hello KodeGo!
+  </div>
+  <UserDetails data={userData}/>
+  <Name name={name}/>
+  <img src={logo} className="App-logo" alt="logo" />
+  <p>
+    Edit <code>src/App.js</code> and save to reload.
+  </p>
+  <a
+    className="App-link"
+    href="https://reactjs.org"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Learn Reactsssss
+  </a>
+</header> */}
+{/* <Counter /> */}
+
+{/* Sample login system activity */}
+{/* <Login userData={userData}/> */}
+{/* <ProductList products={products} categories={categories} /> */}
+
+
+
   // const name = 'Alex';
   // const age = 20;
   // const element = <h1>Hello, {name}</h1>;
@@ -59,19 +114,8 @@ function App() {
   //   }
   // ];
 
-  const [userData, setUserData] = useState([])
 
-  useEffect(() => {
-    apiService.get('/users/getUsers')
-    .then(response => {
-      setUserData(response.data);
-    })
-    .catch(error => {
-      console.log(error);
-    })
-  }, []);
-
-  // const products = [
+    // const products = [
   //   { id: 1, name: 'Product A', category: 'Category 1' },
   //   { id: 2, name: 'Product B', category: 'Category 2' },
   //   { id: 3, name: 'Product C', category: 'Category 1' },
@@ -79,37 +123,3 @@ function App() {
   // ];
 
   // const categories = ['Category 1', 'Category 2', 'Category 3', 'Category 4'];
-
-  return (
-    <div className="App">
-      {/* <header className="App-header">
-        <h1>Hello World</h1>
-        <div style={{ height: 10 }}>
-            Hello KodeGo!
-        </div>
-        <UserDetails data={userData}/>
-        <Name name={name}/>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn Reactsssss
-        </a>
-      </header> */}
-      {/* <Counter /> */}
-
-      {/* Sample login system activity */}
-      {/* <Login userData={userData}/> */}
-      {/* <ProductList products={products} categories={categories} /> */}
-      <Login data={userData} />
-    </div>
-  );
-}
-
-export default App;
